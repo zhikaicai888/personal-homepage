@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>植楷财 | 个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: oklch(45% 0.2 250);
+            --primary-light: oklch(85% 0.1 250);
+            --secondary: oklch(60% 0.15 30);
+            --surface: oklch(98% 0.01 250);
+            --surface-dark: oklch(20% 0.02 250);
+            --text: oklch(25% 0.02 250);
+            --text-light: oklch(50% 0.02 250);
+            --accent: oklch(70% 0.2 180);
+            --border: oklch(90% 0.01 250);
+            --shadow: 0 4px 20px oklch(0% 0 0 / 0.08);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface: oklch(15% 0.02 250);
+                --surface-dark: oklch(10% 0.02 250);
+                --text: oklch(90% 0.01 250);
+                --text-light: oklch(70% 0.01 250);
+                --border: oklch(30% 0.02 250);
+                --shadow: 0 4px 20px oklch(0% 0 0 / 0.2);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--surface);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 5vw, 2rem);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: oklch(100% 0 0 / 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .navbar {
+                background: oklch(15% 0.02 250 / 0.95);
+            }
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .hero-text h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px oklch(45% 0.2 250 / 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .profile-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* 技能区域 */
+        .skills {
+            padding: 6rem 0;
+            background: var(--surface-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px oklch(0% 0 0 / 0.12);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .skill-level {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .level-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* 产品窗口 */
+        .product-window {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            background: linear-gradient(135deg, var(--primary), oklch(55% 0.22 280));
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px oklch(60% 0.2 260 / 0.25);
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px oklch(60% 0.2 260 / 0.35);
+        }
+
+        .product-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 产品弹窗模态框 */
+        .product-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-modal.active {
+            display: flex;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: oklch(0% 0 0 / 0.5);
+            backdrop-filter: blur(6px);
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--surface);
+            border-radius: 20px;
+            width: min(760px, 92vw);
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px oklch(0% 0 0 / 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            border-radius: 20px 20px 0 0;
+            z-index: 1;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: oklch(0% 0 0 / 0.08);
+            color: var(--text);
+        }
+
+        .modal-body {
+            padding: 1.5rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .modal-product-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+        }
+
+        .modal-product-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px oklch(60% 0.2 260 / 0.08);
+        }
+
+        .modal-product-icon-wrap {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), oklch(55% 0.22 280));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .modal-product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .modal-product-info h4 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .modal-product-tag {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: oklch(60% 0.2 260 / 0.08);
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .modal-product-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        /* 项目区域 */
+        .projects {
+            padding: 6rem 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px oklch(0% 0 0 / 0.12);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* 作品集 */
+        .portfolio {
+            padding: 6rem 0;
+            background: var(--surface-dark);
+        }
+
+        .portfolio-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-tab {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .portfolio-tab.active,
+        .portfolio-tab:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px oklch(0% 0 0 / 0.15);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, oklch(0% 0 0 / 0.7) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .portfolio-overlay p {
+            color: oklch(90% 0 0 / 0.8);
+            font-size: 0.875rem;
+        }
+
+        /* 联系区域 */
+        .contact {
+            padding: 6rem 0;
+            background: var(--surface-dark);
+        }
+
+        .contact-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateX(4px);
+        }
+
+        .contact-item.qr-item {
+            cursor: pointer;
+        }
+
+        .qr-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: oklch(0% 0 0 / 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-modal.active {
+            display: flex;
+        }
+
+        .qr-modal-content {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: 0 20px 60px oklch(0% 0 0 / 0.3);
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .qr-modal-content img {
+            width: 220px;
+            height: 220px;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .qr-modal-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-modal-content button {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .qr-modal-content button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+            
+            .skills, .projects, .contact {
+                padding: 4rem 0;
+            }
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo" style="display:flex;align-items:center;gap:0.5rem;">
+                <svg viewBox="0 0 130 36" width="130" height="36" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="zkc-grad-nav" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00f0ff"/><stop offset="50%" stop-color="#7b2fff"/><stop offset="100%" stop-color="#ff2d95"/>
+                        </linearGradient>
+                    </defs>
+                    <text x="65" y="26" text-anchor="middle" fill="url(#zkc-grad-nav)" font-family="Orbitron,sans-serif" font-size="26" font-weight="900" letter-spacing="8">ZKC</text>
+                    <rect x="18" y="6" width="3" height="3" rx="1" fill="#00f0ff" opacity="0.5"/>
+                    <rect x="8" y="14" width="2" height="2" rx="1" fill="#00f0ff" opacity="0.3"/>
+                    <rect x="105" y="5" width="2.5" height="2.5" rx="1" fill="#ff2d95" opacity="0.5"/>
+                    <rect x="115" y="15" width="2" height="2" rx="1" fill="#ff2d95" opacity="0.4"/>
+                    <rect x="22" y="30" width="2" height="2" rx="1" fill="#7b2fff" opacity="0.4"/>
+                    <rect x="108" y="29" width="2.5" height="2.5" rx="1" fill="#7b2fff" opacity="0.5"/>
+                </svg>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#portfolio">作品集</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text animate">
+                <h1>干中学，学中干</h1>
+                <p>深耕运营、设计与AIGC领域，擅长以用户增长为导向的策略运营、品牌视觉设计，以及AI驱动的内容创作与效率提升。</p>
+                <a href="#contact" class="cta-button">
+                    联系我 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="hero-image animate delay-1">
+                <img src="profile_photo.png" alt="个人头像" class="profile-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能区域 -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>核心能力</h2>
+                <p>运营、设计、AIGC 三维驱动，为品牌与产品赋能</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card animate delay-1">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>策略运营</h3>
+                    <p>用户增长、活动策划、数据分析、社群运营，擅长以数据驱动运营决策，提升用户留存与转化。</p>
+                    <div class="skill-level">
+                        <div class="level-bar" style="width: 92%"></div>
+                    </div>
+                    <button class="product-btn" onclick="openModal('yunying')">
+                        <i class="fas fa-expand-alt"></i> 产品窗口
+                    </button>
+                </div>
+                <div class="skill-card animate delay-2">
+                    <div class="skill-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>品牌设计</h3>
+                    <p>视觉设计、UI/UX设计、品牌策划、物料制作，打造具有辨识度的品牌视觉体系。</p>
+                    <div class="skill-level">
+                        <div class="level-bar" style="width: 88%"></div>
+                    </div>
+                    <button class="product-btn" onclick="openModal('sheji')">
+                        <i class="fas fa-expand-alt"></i> 产品窗口
+                    </button>
+                </div>
+                <div class="skill-card animate delay-3">
+                    <div class="skill-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AIGC 应用</h3>
+                    <p>AI绘画、智能文案、视频生成、自动化工作流，将AI工具深度融入创作与运营全链路。</p>
+                    <div class="skill-level">
+                        <div class="level-bar" style="width: 85%"></div>
+                    </div>
+                    <button class="product-btn" onclick="openModal('aigc')">
+                        <i class="fas fa-expand-alt"></i> 产品窗口
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目区域 -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>精选项目</h2>
+                <p>展示最具代表性的工作成果</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card animate delay-1">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="项目1" class="project-image">
+                    <div class="project-content">
+                        <h3>品牌全案运营</h3>
+                        <p>从0到1搭建品牌运营体系，覆盖用户增长、内容营销与社群裂变，实现月活增长300%。</p>
+                        <div class="project-tags">
+                            <span class="tag">用户增长</span>
+                            <span class="tag">内容运营</span>
+                            <span class="tag">社群裂变</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate delay-2">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="项目2" class="project-image">
+                    <div class="project-content">
+                        <h3>品牌视觉升级</h3>
+                        <p>为新消费品牌完成VI系统重构与全渠道视觉规范，覆盖线上商城、包装、门店等触点。</p>
+                        <div class="project-tags">
+                            <span class="tag">VI设计</span>
+                            <span class="tag">包装设计</span>
+                            <span class="tag">Figma</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate delay-3">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="项目3" class="project-image">
+                    <div class="project-content">
+                        <h3>AIGC 内容生产线</h3>
+                        <p>搭建AI驱动的内容生产工作流，覆盖文案、配图、短视频的全自动生成，内容产出效率提升10倍。</p>
+                        <div class="project-tags">
+                            <span class="tag">AI绘画</span>
+                            <span class="tag">智能文案</span>
+                            <span class="tag">视频生成</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>作品集</h2>
+                <p>精选设计作品一览</p>
+            </div>
+            <div class="portfolio-tabs animate delay-1">
+                <button class="portfolio-tab active" data-filter="all">全部</button>
+                <button class="portfolio-tab" data-filter="design">设计作品</button>
+                <button class="portfolio-tab" data-filter="aigc">AIGC创作</button>
+                <button class="portfolio-tab" data-filter="operation">运营案例</button>
+            </div>
+            <div class="portfolio-grid animate delay-2">
+                <div class="portfolio-item" data-category="design">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品1">
+                    <div class="portfolio-overlay">
+                        <h3>品牌VI设计</h3>
+                        <p>新消费品牌视觉体系</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="aigc">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品2">
+                    <div class="portfolio-overlay">
+                        <h3>AI生成插画</h3>
+                        <p>Midjourney + Stable Diffusion</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="operation">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品3">
+                    <div class="portfolio-overlay">
+                        <h3>用户增长方案</h3>
+                        <p>社群裂变 + 活动策划</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="design">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品4">
+                    <div class="portfolio-overlay">
+                        <h3>运营活动页设计</h3>
+                        <p>双11 / 618 大促页面</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="aigc">
+                    <img src="https://images.unsplash.com/photo-1517292987719-0369a794ec0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品5">
+                    <div class="portfolio-overlay">
+                        <h3>AI短视频创作</h3>
+                        <p>文案+配音+画面全流程</p>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="operation">
+                    <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="作品6">
+                    <div class="portfolio-overlay">
+                        <h3>节日营销海报</h3>
+                        <p>全渠道投放物料</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>保持联系</h2>
+                <p>欢迎与我交流合作机会</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item animate delay-1">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>电话</h3>
+                            <p>13533761009</p>
+                        </div>
+                    </div>
+                    <div class="contact-item animate delay-2">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>邮箱</h3>
+                            <p>2224734920@qq.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item qr-item animate delay-4" data-type="wechat">
+                        <div class="contact-icon">
+                            <i class="fab fa-weixin"></i>
+                        </div>
+                        <div>
+                            <h3>微信</h3>
+                            <p>扫描二维码添加</p>
+                        </div>
+                    </div>
+                    <div class="contact-item qr-item animate delay-4" data-type="feishu">
+                        <div class="contact-icon">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <div>
+                            <h3>飞书</h3>
+                            <p>扫描二维码添加</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="WeChat">
+                    <i class="fab fa-weixin"></i>
+                </a>
+            </div>
+            <p>&copy; 2024 植楷财. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <!-- 微信二维码弹窗 -->
+    <div class="qr-modal" id="qrModalWechat">
+        <div class="qr-modal-content">
+            <h3>微信扫码添加</h3>
+            <img src="wechat_qrcode_new.png" alt="微信二维码">
+            <p style="color: var(--text-light); font-size: 0.875rem;">扫描二维码添加好友</p>
+            <button class="closeQrModal">关闭</button>
+        </div>
+    </div>
+    <!-- 飞书二维码弹窗 -->
+    <div class="qr-modal" id="qrModalFeishu">
+        <div class="qr-modal-content">
+            <h3>飞书扫码添加</h3>
+            <img src="feishu_qrcode.png" alt="飞书二维码">
+            <p style="color: var(--text-light); font-size: 0.875rem;">扫描二维码添加好友</p>
+            <button class="closeQrModal">关闭</button>
+        </div>
+    </div>
+
+    <script>
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有需要动画的元素
+        document.querySelectorAll('.animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 作品集筛选
+        document.querySelectorAll('.portfolio-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.portfolio-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 二维码弹窗
+        const qrItems = document.querySelectorAll('.qr-item');
+        const qrModalWechat = document.getElementById('qrModalWechat');
+        const qrModalFeishu = document.getElementById('qrModalFeishu');
+        const closeBtns = document.querySelectorAll('.closeQrModal');
+
+        qrItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.dataset.type;
+                if (type === 'feishu') {
+                    qrModalFeishu.classList.add('active');
+                } else {
+                    qrModalWechat.classList.add('active');
+                }
+            });
+        });
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.qr-modal').classList.remove('active');
+            });
+        });
+        [qrModalWechat, qrModalFeishu].forEach(modal => {
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.classList.remove('active');
+                });
+            }
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 4px 20px oklch(0% 0 0 / 0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <div id="product-modal" class="product-modal">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+    <script>
+        const modalData = {
+            yunying: {
+                title: '策略运营·产品窗口',
+                items: [
+                    { icon: 'fa-users', name: '社群裂变SOP', desc: '7天留存提升40%', detail: '基于AARRR模型设计的社群裂变标准化流程，涵盖种子用户筛选、激励机制设计、裂变路径规划与数据监控体系。已落地验证：7天留存率提升40%，单群月裂变新增200+用户。' },
+                    { icon: 'fa-bullhorn', name: '活动运营方案', desc: '转化率提升2.5倍', detail: '全链路活动运营方案，从目标拆解、玩法设计、资源协调到活动上线、数据复盘。采用"游戏化+任务制"组合策略，某电商项目活动期间转化率提升2.5倍。' }
+                ]
+            },
+            sheji: {
+                title: '品牌设计·产品窗口',
+                items: [
+                    { icon: 'fa-fill-drip', name: 'VI视觉规范', desc: '全渠道品牌统一', detail: '从品牌定位出发，输出完整的VI视觉识别手册，包括Logo规范、色彩体系、字体规范、辅助图形与全渠道应用示例。覆盖线上商城、社交媒体、线下门店等所有触点。' },
+                    { icon: 'fa-box', name: '包装设计', desc: '新消费品全系列', detail: '为新消费品牌完成全系列产品包装设计，涵盖主视觉设计、结构设计、材质选型与印刷工艺把控。从概念草图到量产落地全流程把控，项目周期缩短30%。' }
+                ]
+            },
+            aigc: {
+                title: 'AIGC应用·产品窗口',
+                items: [
+                    { icon: 'fa-image', name: 'AI绘画工具链', desc: 'MJ+SD+ComfyUI', detail: '整合Midjourney、Stable Diffusion、ComfyUI三大主流工具，搭建企业级AI绘画工作流。支持批量生图、风格迁移、精准控图与后期精修，单日产能1000+高质量图像素材。' },
+                    { icon: 'fa-video', name: '智能短视频', desc: '全流程自动化', detail: '基于AI技术的短视频全流程自动化生产线：AI脚本生成→数字人口播→智能剪辑→自动字幕→封面生成。单条视频制作时间从4小时压缩至15分钟，月产200+条。' }
+                ]
+            }
+        };
+        function openModal(key) {
+            const data = modalData[key];
+            document.getElementById('modal-title').textContent = data.title;
+            let html = '';
+            data.items.forEach(item => {
+                html += `<div class="modal-product-card">
+                    <div class="modal-product-icon-wrap">
+                        <i class="fas ${item.icon}"></i>
+                    </div>
+                    <div class="modal-product-info">
+                        <h4>${item.name}</h4>
+                        <span class="modal-product-tag">${item.desc}</span>
+                        <p>${item.detail}</p>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('modal-body').innerHTML = html;
+            document.getElementById('product-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
